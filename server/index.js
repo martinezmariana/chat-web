@@ -8,7 +8,7 @@ import bodyParser from "body-parser"
 import { create } from "domain"
 
 //Configuracion Mongoose
-var url = 'mongodb+srv://maru:l9u7eMUCBFEdOmVx@chatweb.89xjhf2.mongodb.net/?retryWrites=true&w=majority';
+var url = 'mongodb+srv://marumartinez:joseJuli22@chatweb.89xjhf2.mongodb.net/?retryWrites=true&w=majority';
 mongoose.Promise = global.Promise
 
 const app = Express ()
@@ -19,7 +19,7 @@ const PORT = 4000
 
 const server = http.createServer(app)
 const io = new Socketserver(server, {
-    core:{
+    cors:{
         origin: '*'
     }
 })
@@ -32,12 +32,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 
-
+app.use('/api', router);
 //conexión de la app a mongooseDB
-mongoose.connect(url, {useNewUrlParser: true.then}).then(() => {
-    console.log('conexión a la DB realizada con éxitos')
-    server.listen(PORT, () => {
-        console.log('Servidor Corriendo en el puerto', PORT)
-    })
+mongoose.connect(url, { useNewUrlParser: true }).then(() =>{
+    console.log('Conexión con la BDD realizada con éxito!!!');
+    server.listen(PORT, () =>{
+		console.log('servidor ejecutándose en http://localhost:', PORT );
+	});
 })
 
